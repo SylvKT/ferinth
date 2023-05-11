@@ -65,6 +65,44 @@ pub struct Project {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct SearchedProject {
+    /// The project's slug, used for vanity URLs.
+    /// This can change at any time, so use the [`Project::id`] for long term storage.
+    pub slug: String,
+    pub title: String,
+    /// A short description of the project
+    pub description: String,
+    pub categories: Vec<String>,
+    pub client_side: ProjectSupportRange,
+    pub server_side: ProjectSupportRange,
+    pub project_type: ProjectType,
+    pub downloads: Number,
+    #[serde(deserialize_with = "deserialise_optional_url")]
+    pub icon_url: Option<Url>,
+    /// The RGB color of the project, automatically generated from the project icon
+    pub color: Option<Number>,
+    pub project_id: ID,
+    pub author: ID,
+    /// A list of categories which are searchable but non-primary
+    pub display_categories: Vec<String>,
+    /// A list of all of the game versions supported by the project
+    pub versions: Vec<String>,
+    /// A link to the long description of the project (only present for old projects)
+    #[deprecated = "Read from `body` instead"]
+    #[serde(deserialize_with = "deserialise_optional_url")]
+    pub body_url: Option<Url>,
+    pub follows: Number,
+    pub date_created: UtcTime,
+    pub date_modified: UtcTime,
+    /// Latest Minecraft version
+    pub latest_version: String,
+    pub license: String,
+    /// A list of images that have been uploaded to the project's gallery
+    pub gallery: Vec<Url>,
+    pub featured_gallery: String,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct ModeratorMessage {
     pub message: String,
     /// The longer body of the message

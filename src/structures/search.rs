@@ -61,7 +61,7 @@ impl Serialize for Facet {
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
 pub struct Response {
-    pub hits: Vec<project::Project>,
+    pub hits: Vec<project::SearchedProject>,
     pub offset: Number,
     pub limit: Number,
     pub total_hits: Number,
