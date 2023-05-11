@@ -47,9 +47,9 @@ impl Ferinth {
             .get(
                 API_BASE_URL
                     .join_all(vec!["search"])
-                    .with_query_json("query", query)?
-                    .with_query_json("sort", &sort.to_string())?
-                    .with_query_json("facets", &serde_json::to_string(facets)?)?,
+                    .with_query("query", query)
+                    .with_query("index", &sort.to_string())
+                    .with_query("facets", &serde_json::to_string(facets)?),
             )
             .custom_send_json()
             .await
