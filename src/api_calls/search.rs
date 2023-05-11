@@ -14,17 +14,17 @@ impl Ferinth {
         offset: &Number,
         facets: &[&[Facet]],
     ) -> Result<Response> {
-        self.get_with_query(
-            API_URL_BASE.join("search").unwrap(),
-            &[
-                ("query", query),
-                ("index", &sort.to_string()),
-                ("limit", &limit.to_string()),
-                ("offset", &offset.to_string()),
-                ("facets", &serde_json::to_string(facets)?),
-            ],
-        )
-        .await
+        self.client
+            .get(
+                API_BASE_URL.join_all(vec!["search"])
+                    .with_query_json("query", query)?
+                    .with_query_json("index", &sort.to_string())?
+                    .with_query_json("limit", &limit.to_string())?
+                    .with_query_json("offset", &offset.to_string())?
+                    .with_query_json("facets", &serde_json::to_string(facets)?)?,
+            )
+            .custom_send_json()
+            .await
     }
 
     /// Search for projects using `query` string
@@ -43,14 +43,15 @@ impl Ferinth {
     /// # Ok(()) }
     /// ```
     pub async fn search(&self, query: &str, sort: &Sort, facets: &[&[Facet]]) -> Result<Response> {
-        self.get_with_query(
-            API_URL_BASE.join("search").unwrap(),
-            &[
-                ("query", query),
-                ("sort", &sort.to_string()),
-                ("facets", &serde_json::to_string(facets)?),
-            ],
-        )
-        .await
+        self.client
+            .get(
+                API_BASE_URL
+                    .join_all(vec!["search"])
+                    .with_query_json("query", query)?
+                    .with_query_json("sort", &sort.to_string())?
+                    .with_query_json("facets", &serde_json::to_string(facets)?)?,
+            )
+            .custom_send_json()
+            .await
     }
 }
