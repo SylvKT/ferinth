@@ -55,6 +55,7 @@ impl Serialize for Facet {
                 )
             }
         };
+        println!("{}", output);
         serializer.collect_str(&output)
     }
 }
