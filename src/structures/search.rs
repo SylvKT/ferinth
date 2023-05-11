@@ -45,9 +45,9 @@ impl Serialize for Facet {
         S: serde::Serializer,
     {
         let output = match self {
-            Facet::Categories(category) => format!("categories:\"{}\"", category),
-            Facet::Versions(version) => format!("versions:\"{}\"", version),
-            Facet::License(license_id) => format!("license:\"{}\"", license_id),
+            Facet::Categories(category) => format!(r#"categories:"{}""#, category),
+            Facet::Versions(version) => format!(r#"versions:{}"#, version),
+            Facet::License(license_id) => format!(r#"license:{}"#, license_id),
             Facet::ProjectType(project_type) => {
                 format!(
                     "project_type:{}",
