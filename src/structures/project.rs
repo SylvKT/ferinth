@@ -95,7 +95,7 @@ pub struct SearchedProject {
     pub license: String,
     /// A list of images that have been uploaded to the project's gallery
     pub gallery: Vec<Url>,
-    pub featured_gallery: String,
+    pub featured_gallery: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
