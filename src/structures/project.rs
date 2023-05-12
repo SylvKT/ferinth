@@ -87,10 +87,6 @@ pub struct SearchedProject {
     pub display_categories: Vec<String>,
     /// A list of all of the game versions supported by the project
     pub versions: Vec<String>,
-    /// A link to the long description of the project (only present for old projects)
-    #[deprecated = "Read from `body` instead"]
-    #[serde(deserialize_with = "deserialise_optional_url")]
-    pub body_url: Option<Url>,
     pub follows: Number,
     pub date_created: UtcTime,
     pub date_modified: UtcTime,
